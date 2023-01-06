@@ -8,17 +8,26 @@ router.get('/', function(req, res, next) {
 
 /* Страница Quas */
 router.get('/quas', function(req, res, next) {
-    res.send("<h1>Сфера Quas</h1>")
+    res.render('invoker',{
+      title: "Quas",
+      picture: "images/invoker_quas.png",
+      desc: "Сфера стихии льда. Позволяет управлять стихией льда и увеличивает здоровье персонажа. Каждая активная сфера увеличивает восстановление здоровья."
+    });
 });
 
 /* Страница Wex */
 router.get('/wex', function(req, res, next) {
-    res.send("<h1>Сфера Wex</h1>")
+   res.render('invoker',{
+    title: "Wex",
+    picture: "images/invoker_wex.png",
+    desc: "Сфера стихии молнии. Позволяет управлять стихией молнии и увеличивает ловкость персонажа. Каждая активная сфера увеличивает скорость атаки и передвижения."
+  });
 });
-
-/* Страница Exort */
 router.get('/exort', function(req, res, next) {
-    res.send("<h1>Сфера Exort</h1>")
+  res.render('invoker',{
+    title: "Exort",
+    picture: "images/invoker_exort.png",
+    desc: "Сфера стихии огня. Позволяет управлять стихией огня и увеличивает интеллект персонажа. Каждая активная сфера увеличивает урон от атак."
+  });
 });
-
 module.exports = router;
