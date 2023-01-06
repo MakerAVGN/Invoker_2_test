@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+  /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
       title: "Invoker",
@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     });
  });
 
-/* Страница Quas */
+  /* Страница Quas */             
 router.get('/quas', function(req, res, next) {
     res.render('invoker',{
       title: "Quas",
@@ -19,7 +19,7 @@ router.get('/quas', function(req, res, next) {
     });
 });
 
-/* Страница Wex */
+  /* Страница Wex */
 router.get('/wex', function(req, res, next) {
    res.render('invoker',{
     title: "Wex",
