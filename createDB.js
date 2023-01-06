@@ -10,8 +10,8 @@ var database = client.db("invoker");
 database.dropDatabase()
 database = client.db("invoker");
 const orbs = database.collection("orbs");
-const result = await orbs.insertOne({name:"Quas"});
-console.log(`${result} прошло успешно!`);
+const result = await orbs.insertMany(data);
+console.log(`${result.insertedCount} прошло успешно!`);
 } finally {
 await client.close();
 }
