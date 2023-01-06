@@ -3,8 +3,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+  res.render('index', {
+      title: "Invoker",
+        picture: "images/invoker.jpg",
+      desc: "Добро пожаловать путник. Я - величайший маг и имя мне Карл. Вижу ты пришел не просто так, а чтобы узнать о моих сферах. Ты очень умен, раз прошел через все барьеры, поэтому я поведаю тебе о своей силе."
+    });
+ });
 
 /* Страница Quas */
 router.get('/quas', function(req, res, next) {
