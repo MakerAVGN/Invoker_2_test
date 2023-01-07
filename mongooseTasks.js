@@ -1,16 +1,14 @@
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://127.0.0.1:27017/test');
+mongoose.connect('mongodb://127.0.0.1:27017/test1');
 mongoose.set('strictQuery', true);
+var Orb = require("./models/orb").Orb
 
-var schema = mongoose.Schema({ name: String })
+var orb = new Orb({
+title: "Quas",
+nick: "quas"
+})
 
-schema.methods.attribute= function(){
-    console.log(this.get("name") + " прибавил атрибуты")
-}
-
-var Orb = mongoose.model('Orb', schema);
-
-var sphere = new Orb({ name: 'Exort' })
-sphere.save(function (err) {
-   sphere.attribute()
+console.log(orb)
+orb.save(function(){
+console.log(arguments)
 })
