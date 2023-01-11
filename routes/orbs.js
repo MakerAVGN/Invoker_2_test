@@ -12,7 +12,7 @@ module.exports = router;
 router.get("/:nick", function(req, res, next) {
     Orb.findOne({nick:req.params.nick}, function(err,orb){
         if(err) return next(err)
-        if(!cat) return next(new Error("НЕТ ТАКОЙ СФЕРЫ!"))
+        if(!orb) return next(new Error("НЕТ ТАКОЙ СФЕРЫ!"))
         res.render('orb', {
             title: orb.title,
             picture: orb.avatar,
