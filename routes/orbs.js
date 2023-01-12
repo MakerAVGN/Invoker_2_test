@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Orb = require("../models/orb").Orb
+var async = require("async")
 
   /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -9,15 +10,29 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-router.get("/:nick", function(req, res, next) {
-    Orb.findOne({nick:req.params.nick}, function(err,orb){
-        if(err) return next(err)
-        if(!orb) return next(new Error("НЕТ ТАКОЙ СФЕРЫ!"))
-        res.render('orb', {
-            title: orb.title,
-            picture: orb.avatar,
-            desc: orb.desc
+/* Страница сфер */
+router.get('/:nick', function(req, res, next) {
+    async.parallel([
+            function(callback){
+                Orb.findOne({nick:req.params.nick}, callback)
+            },
+            function(callback){
+                Orb.find({},{_id:0,title:1,nick:1},callback)
+            }
+        ],
+        function(err,result){
+            if(err) return next(err)
+            var orb = result[0]
+            var orbs = result[1]
+            console.log(orbs)
+            if(!orb) return next(new Error("Нет такой сферы у Инвокера!"))
+            res.render('orb', {
+                title: orb.title,
+                picture: orb.avatar,
+                desc: orb.desc,
+                menu: orbs
+            });
         })
-    })
-})
+  })
+
 
