@@ -3,14 +3,14 @@ var router = express.Router();
 var Orb = require("../models/orb").Orb
 var async = require("async")
 
-  /* GET users listing. */
+/* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('Новый маршрутизатор, для маршрутов, начинающихся с orbs');
 });
 
-module.exports = router;
+/* Страница машин */
 
-/* Страница сфер */
+
 router.get('/:nick', function(req, res, next) {
     async.parallel([
             function(callback){
@@ -23,9 +23,8 @@ router.get('/:nick', function(req, res, next) {
         function(err,result){
             if(err) return next(err)
             var orb = result[0]
-            var orbs = result[1]
-            console.log(orbs)
-            if(!orb) return next(new Error("Нет такой сферы у Инвокера!"))
+            var orbs = result[1] || []
+            if(!orb) return next(new Error("Нет такой сферы!"))
             res.render('orb', {
                 title: orb.title,
                 picture: orb.avatar,
@@ -34,5 +33,5 @@ router.get('/:nick', function(req, res, next) {
             });
         })
   })
-
-
+  
+  module.exports = router
