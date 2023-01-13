@@ -5,11 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose')
 mongoose.connect('mongodb://127.0.0.1:27017/invoker')
-
+var orbs = require('./routes/orbs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var orbRouter = require('./routes/orbs');
 
 var app = express();
 
@@ -26,12 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/orbs', orbRouter);
+app.use('/orbs', orbs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-  menu: []
 });
 
 // error handler
@@ -42,7 +40,11 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error', {title: "Упс... Ошибка"}, {menu: []});
+  res.render('error',
+  {
+    picture: "../images/error.png",
+    title: 'Ошибка, проверьте корректность запроса.'
+  });
 });
 
 module.exports = app;

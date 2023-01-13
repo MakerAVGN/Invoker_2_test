@@ -16,4 +16,4 @@ type:Date,
 default:Date.now
 }
 })
-module.exports.Orb = mongoose.model("Orb", orbSchema)
+module.exports.Orb = mongoose.model("Orb",orbSchema)

@@ -17,6 +17,6 @@ avatar: '/images/invoker_exort.png',
 desc: 'Сфера стихии огня. Позволяет управлять стихией огня и увеличивает интеллект персонажа. Каждая активная сфера увеличивает урон от атак.'
 },
 ];
-
-
-module.exports.data = data;
+    
+    
+    module.exports.data = data;
