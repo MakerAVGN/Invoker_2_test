@@ -18,7 +18,7 @@ router.get('/:nick', function(req, res, next) {
         res.render('orb', {
             title: orb.title,
             picture: orb.avatar,
-            desc: orb.desc1
+            desc: orb.desc
         }) 
     })
 })
