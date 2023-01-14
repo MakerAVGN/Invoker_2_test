@@ -6,17 +6,10 @@ router.get('/', function(req, res, next) {
     Orb.find({},{_id:0,title:1,nick:1},function(err,menu){
         res.render('index', {
                                 title: 'Express',
-                                menu: menu
+                                counter:req.session.counter
                             });
     })
 
-});
-
-router.get('/', function(req, res, next) {
-    res.render('index', {
-       title: 'Express', 
-       menu:menu, 
-       counter:req.session.counter });
 });
 
 

@@ -12,26 +12,16 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/:nick', function(req, res, next) {
-    async.parallel([
-            function(callback){
-                Orb.findOne({nick:req.params.nick}, callback)
-            },
-            function(callback){
-                Orb.find({},{_id:0,title:1,nick:1},callback)
-            }
-        ],
-        function(err,result){
-            if(err) return next(err)
-            var orb = result[0]
-            var orbs = result[1] || []
-            if(!orb) return next(new Error("Нет такой сферы!"))
-            res.render('orb', {
-                title: orb.title,
-                picture: orb.avatar,
-                desc: orb.desc,
-                menu: orbs
-            });
-        })
-  })
+    Orb.findOne({nick:req.params.nick}, function(err,orb){
+        if(err) return next(err)
+        if(!orb) return next(new Error("Нет такой сферы"))
+        res.render('orb', {
+            title: orb.title,
+            picture: orb.avatar,
+            desc: orb.desc1
+        }) 
+    })
+})
+
   
   module.exports = router

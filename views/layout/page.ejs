@@ -18,12 +18,13 @@
           <a class="nav-link" href="/">Invoker</a>
         </li>
       </ul>
-      <% menu.forEach(function(orb){ %>
+      <% if(typeof nav=='object' && nav){ nav.forEach(function(orb){ %>
         <li class="nav-item">
           <a class="nav-link" href="/orbs/<%=orb.nick%>">
-            <%=orb.title%></a>
+            <%=orb.title%>
+          </a>
         </li>
-        <% }) %>
+        <% })} %>
         <ul class="navbar-nav navbar-right">
           <li>
             <a class="nav-link" href="">Войти</a>
