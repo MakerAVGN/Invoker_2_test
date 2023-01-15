@@ -1,37 +1,51 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
+var Orb = require("../models/orb").Orb
+var User = require("../models/user").User
 
-  /* GET home page. */
+
+/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-      title: "Invoker",
-        picture: "images/invoker.jpg",
-      desc: "Добро пожаловать путник. Я - величайший маг и имя мне Карл. Вижу ты пришел не просто так, а чтобы узнать о моих сферах. Ты очень умен, раз прошел через все барьеры, поэтому я поведаю тебе о своей силе."
-    });
- });
+    Orb.find({},{_id:0,title:1,nick:1},function(err,menu){
+        req.session.greeting = "Hi!!!",
+            res.cookie('greeting', 'Hi!!!').render('index', {
+            title: 'Express',
+            menu: menu,
+            counter:req.session.counter
+        });
+    })
+  
+});
+  
+/* GET login/registration page. */
+router.get('/logreg', function(req, res, next) {
+    res.render('logreg',{title: 'Вход'});
+    
 
-  /* Страница Quas */             
-router.get('/quas', function(req, res, next) {
-    res.render('invoker',{
-      title: "Quas",
-      picture: "images/invoker_quas.png",
-      desc: "Сфера стихии льда. Позволяет управлять стихией льда и увеличивает здоровье персонажа. Каждая активная сфера увеличивает восстановление здоровья."
     });
-});
 
-  /* Страница Wex */
-router.get('/wex', function(req, res, next) {
-   res.render('invoker',{
-    title: "Wex",
-    picture: "images/invoker_wex.png",
-    desc: "Сфера стихии молнии. Позволяет управлять стихией молнии и увеличивает ловкость персонажа. Каждая активная сфера увеличивает скорость атаки и передвижения."
+    /* POST login/registration page. */
+router.post('/logreg', function(req, res, next) {
+    var username = req.body.username
+    var password = req.body.password
+  User.findOne({username:username},function(err,user){
+        if(err) return next(err)
+        if(user){
+            if(user.checkPassword(password)){
+                req.session.user = user._id
+                res.redirect('/')
+            } else {
+                      res.render('logreg', {title: 'Вход'})
+            }
+        } else {
+            var user = new User({username:username,password:password})
+            user.save(function(err,user){
+                if(err) return next(err)
+                req.session.user = user._id
+                res.redirect('/')
+            })        
+      }
+    })
   });
-});
-router.get('/exort', function(req, res, next) {
-  res.render('invoker',{
-    title: "Exort",
-    picture: "images/invoker_exort.png",
-    desc: "Сфера стихии огня. Позволяет управлять стихией огня и увеличивает интеллект персонажа. Каждая активная сфера увеличивает урон от атак."
-  });
-});
-module.exports = router;
+  
+  module.exports = router;
