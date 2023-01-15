@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 var Orb = require("../models/orb").Orb
 var User = require("../models/user").User
-
+var checkAuth = require("../middleware/checkAuth.js")
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

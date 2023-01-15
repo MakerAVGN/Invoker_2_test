@@ -2,16 +2,16 @@ var express = require('express');
 var router = express.Router();
 var Orb = require("../models/orb").Orb
 var async = require("async")
+var checkAuth = require("../middleware/checkAuth.js")
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('Новый маршрутизатор, для маршрутов, начинающихся с orbs');
 });
 
-/* Страница машин */
+/* Страница сфер */
 
-
-router.get('/:nick', function(req, res, next) {
+router.get('/:nick',checkAuth,function(req, res, next) {
     Orb.findOne({nick:req.params.nick}, function(err,orb){
         if(err) return next(err)
         if(!orb) return next(new Error("Нет такой сферы"))
