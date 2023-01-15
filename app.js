@@ -51,6 +51,7 @@ app.use(function(req,res,next){
 })
 
 // app.use(require("./middleware/createMenu.js"))  почему-то не работает
+app.use(require("./middleware/createUser.js"))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
